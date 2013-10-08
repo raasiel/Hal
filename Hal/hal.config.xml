@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hal>
+  <action_config>
+    <actions>
+      <action name="next" text="Next" cmd="prebuit.cmd.next"/>
+      <action name="prev" text="previous" cmd="prebuit.cmd.prev"/>
+      <action name="cancel" text="Cancel" cmd="prebuit.cmd.exit_with_warning"/>
+      <action name="finish" text="Finish" cmd="prebuit.cmd.exit_with_warning"/>
+    </actions>
+    <sets>
+      <set name="default">["prev","next","cancel"]</set>
+      <set name="start">["next","cancel"]</set>
+      <set name="finish">["prev","next","finish"]</set>
+    </sets>
+  </action_config>
+  <view_config>
+    <master_view></master_view>
+    <user_css></user_css>
+  </view_config>
+  <steps>
+    <step name="intro" 
+          renderer="prebuilt.view.message"
+          actions="start"
+          >
+      <header></header>
+      <body></body>      
+    </step>
+    <step name="change_security_settings" 
+          renderer="prebuilt.view.flow_downward"
+          actions="default">
+      <header>Change Security Settings</header>
+      <body>Specify how users will login to CRA Wiz and Fair Lending Wiz</body>
+      <content>
+        <text>You can change how users will be able to login to CRA Wiz and Fair Lending Wiz. Please choose one of the option below</text>
+        <radio>
+          <option value="1" text="Wiz Login Mode(Default)"/>
+          <option value="2" text="Active Directory Login Mode"/>
+        </radio>
+      </content>
+    </step>
+    <step name="server_information"
+          renderer="prebuilt.view.flow_downward"
+          actions="default">
+      <header>Setup needs the system administrtor user name, password and the name of SQL Server</header>
+      <body>Specify how users will login to CRA Wiz and Fair Lending Wiz</body>
+      <content>
+        <input text="Sql Server:"></input>
+        <radio>
+          <option value="1" text="Windows Authentication"></option>
+          <option value="2" text="">
+            <content conditional="{selected==true}">
+              <input text="username"></input>
+              <input text="password" isPassword="true"></input>
+            </content>
+          </option>
+        </radio>
+      </content>
+    </step>
+  </steps>
+</hal>
